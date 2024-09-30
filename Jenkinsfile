@@ -88,7 +88,7 @@ pipeline {
         stage('Update Deployment file') {
             environment {
                 GIT_REPO_NAME = "fleetman-webapp"
-                GIT_ORG_NAME = "fleetman-k8s-ci"
+                GIT_ORG_NAME = "darshantech5"
             }
             steps {
               dir('manifests') {
@@ -103,7 +103,11 @@ pipeline {
                         sed -i "s/${AWS_ECR_REPO_NAME}:${imageTag}/${AWS_ECR_REPO_NAME}:${BUILD_NUMBER}/" deploy.yaml
                         git add deploy.yaml
                         git commit -m "Update deployment Image to version \${BUILD_NUMBER}"
-                        git push https://${GITHUB_TOKEN}@github.com/${GIT_ORG_NAME}/${GIT_REPO_NAME} HEAD:master
+                        # Pull the latest changes before pushing
+                        git pull origin master --rebase
+            
+                        # Force push to ensure our changes are applied
+                        git push https://${GITHUB_TOKEN}@github.com/${GIT_ORG_NAME}/${GIT_REPO_NAME} HEAD:master --force
                     '''
                   }
                 }
