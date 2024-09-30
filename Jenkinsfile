@@ -7,7 +7,7 @@ pipeline {
         AWS_ACCOUNT_ID = credentials('ACCOUNT_ID')
         AWS_ECR_REPO_NAME = credentials('ECR_REPO_WEBAPP')
         AWS_DEFAULT_REGION = 'us-east-1'
-        ORGANIZATION_NAME = "fleetman-k8s-ci"
+        ORGANIZATION_NAME = "darshantech5"
         SERVICE_NAME = "fleetman-webapp"
             
         REPOSITORY_TAG = "${ORGANIZATION_NAME}-${SERVICE_NAME}:${BUILD_ID}"
